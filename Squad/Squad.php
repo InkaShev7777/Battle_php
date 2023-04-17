@@ -12,7 +12,7 @@ class Squad
         $this->name = $name_squad;
         $this->min_count_warrior = 5;
         $this->max_count_warrior = 25;
-        $this->squad = [];
+        $this->squad = array();
     }
     public function Add_Warrior($new_warior){
         if(count($this->squad) <= $this->max_count_warrior){
