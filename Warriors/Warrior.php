@@ -22,5 +22,17 @@
         public function Moving(){
             echo "<p> Player: ".$this->nameWarrior." moves at speed: ".$this->speed."</p>";
         }
+        public function get_name(){
+            return $this->nameWarrior;
+        }
+        public function update_health($dop){
+            $this->health = $this->health + $dop;
+        }
+        public function update_speed($dop){
+            $this->speed = $this->speed + $dop;
+        }
+        public function update_protection($dop){
+            $this->protection = $this->protection + $dop;
+        }
     }
 ?>
