@@ -23,10 +23,10 @@ include_once 'Warriors/Warrior.php';
                 $this->updateSquads();
                 if(count($this->first_squad) == 0 || count($this->second_squad) == 0){
                     if(count($this->first_squad) == 0){
-                        echo "Winner Second Squad";
+                        echo "<h1 style='color: green'>Winner Second Squad</h1>";
                     }
                     elseif (count($this->second_squad)==0){
-                        echo "Winner First Squad";
+                        echo "<h1 style='color: green'>Winner First Squad</h1>";
                     }
                     break;
                 }
@@ -35,10 +35,10 @@ include_once 'Warriors/Warrior.php';
                 $this->updateSquads();
                 if(count($this->second_squad) == 0 || count($this->first_squad) == 0 ){
                     if(count($this->first_squad) == 0){
-                        echo "Winner Second Squad";
+                        echo "<h1 style='color: green'>Winner Second Squad</h1>";
                     }
                     elseif (count($this->second_squad)==0){
-                        echo "Winner First Squad";
+                        echo "<h1 style='color: green'>Winner First Squad</h1>";
                     }
                     break;
                 }
@@ -55,11 +55,17 @@ include_once 'Warriors/Warrior.php';
                 if($fr->isLive()==true){
                     array_push($fir_ms,$fr);
                 }
+                else{
+                    echo "<h2 style='color: red'>Player:".$fr->get_name()." DEAD</h2>";
+                }
             }
             $this->first_squad = $fir_ms;
             foreach ($this->second_squad as $se){
                 if($se->isLive()==true){
                     array_push($sec_mas,$se);
+                }
+                else{
+                    echo "<h2 style='color: red'>Player:".$se->get_name()." DEAD</h2>";
                 }
             }
             $this->second_squad = $sec_mas;
