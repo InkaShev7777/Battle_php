@@ -50,6 +50,9 @@ class Squad
             echo "ne ok";
         }
     }
+    public function getSquad(){
+        return $this->squad;
+    }
 }
 
 ?>
