@@ -1,26 +1,77 @@
 <?php
 include_once 'Squad/Squad.php';
+include_once 'Warriors/Warrior.php';
     class Battlefild{
         private $weather;
         private $first_squad;
         private $second_squad;
+        private $first_commander;
+        private $second_commander;
 
         public function __construct($first_squad,$second_squad,$weather){
             $this->first_squad = $first_squad->getSquad();
             $this->second_squad = $second_squad->getSquad();
+            $this->first_commander = $first_squad->getCommander();
+            $this->second_commander = $second_squad->getCommander();
             $this->weather = $weather;
         }
 
         public function Battle(){
-            $count_warrior_first = count($this->first_squad);
-            $count_warrior_second = count($this->second_squad);
-            if($count_warrior_first >= $count_warrior_second){
-                for($i=0;$i<$count_warrior_first;$i++){
-                    $this->first_squad[$i]->Attack($this->second_squad[$i]);
-                    echo "---------------";
-                    $this->second_squad[$i]->Attack($this->first_squad[$i]);
-                    echo "---------------";
-
+            do{
+                echo "Start <br>";
+                $this->first_squad[$this->randWarrior($this->first_squad)]->Attack($this->second_squad[$this->randWarrior($this->second_squad)]);
+                $this->updateSquads();
+                if(count($this->first_squad) == 0 || count($this->second_squad) == 0){
+                    if(count($this->first_squad) == 0){
+                        echo "Winner Second Squad";
+                    }
+                    elseif (count($this->second_squad)==0){
+                        echo "Winner First Squad";
+                    }
+                    break;
+                }
+                echo "<br>____________________________________<br>";
+                $this->second_squad[$this->randWarrior($this->second_squad)]->Attack($this->first_squad[$this->randWarrior($this->first_squad)]);
+                $this->updateSquads();
+                if(count($this->second_squad) == 0 || count($this->first_squad) == 0 ){
+                    if(count($this->first_squad) == 0){
+                        echo "Winner Second Squad";
+                    }
+                    elseif (count($this->second_squad)==0){
+                        echo "Winner First Squad";
+                    }
+                    break;
+                }
+                echo "<br>____________________________________<br>";
+            }while(count($this->first_squad) != 0 || count($this->second_squad));
+        }
+        private function randWarrior($squad){
+            return rand(0,count($squad)-1);
+        }
+        private function updateSquads(){
+            $fir_ms = array();
+            $sec_mas = array();
+            foreach ($this->first_squad as $fr){
+                if($fr->isLive()==true){
+                    array_push($fir_ms,$fr);
+                }
+            }
+            $this->first_squad = $fir_ms;
+            foreach ($this->second_squad as $se){
+                if($se->isLive()==true){
+                    array_push($sec_mas,$se);
+                }
+            }
+            $this->second_squad = $sec_mas;
+        }
+        private function CommandersDeath($commander){
+            $ProbabilityOfDeath = rand(0,100);
+            if($commander->isLive() == true){
+                if($ProbabilityOfDeath < 5){
+                    $commander->update_health(-10);
+                }
+                if($commander->isLive() == false){
+                    echo "Commander death";
                 }
             }
         }

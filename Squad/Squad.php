@@ -53,6 +53,9 @@ class Squad
     public function getSquad(){
         return $this->squad;
     }
+    public function getCommander(){
+        return $this->commander;
+    }
 }
 
 ?>

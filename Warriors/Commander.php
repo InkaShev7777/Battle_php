@@ -3,7 +3,11 @@
         private $achivements;
 
         public function __construct($name){
+            //
+            //update commander and add fraction
+            //
             $this->nameWarrior = $name;
+            $this->health = 100;
             $this->achivements = array();
         }
         public function Add_Achivments($achiv){

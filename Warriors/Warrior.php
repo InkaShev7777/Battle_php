@@ -6,14 +6,15 @@
         protected $armor;
         protected $speed;
         protected $protection;
+        protected $fraction;
 
         public function Attack($enemy){
-            $enemy->health = $enemy->health - $this->weapon->getDamage();
-            echo "<p>Player: ".$this->nameWarrior." attack -> player: ".$enemy->nameWarrior."</p>";
-            echo "<p>Health player: ".$this->nameWarrior." ---- ".$this->health."</p>";
-            echo "<p>Health player: ".$enemy->nameWarrior." ---- ".$enemy->health."</p>";
-
-
+            if($enemy != null){
+                $enemy->health = $enemy->health - $this->weapon->getDamage();
+                echo "<p>Player: ".$this->nameWarrior." attack -> player: ".$enemy->nameWarrior."</p>";
+                echo "<p>Health player: ".$this->nameWarrior." ---- ".$this->health."</p>";
+                echo "<p>Health player: ".$enemy->nameWarrior." ---- ".$enemy->health."</p>";
+            }
         }
         public function Protection(){
             $this->protection = $this->protection - 5;
@@ -24,6 +25,17 @@
         }
         public function get_name(){
             return $this->nameWarrior;
+        }
+        public function get_health(){
+            return $this->health;
+        }
+        public function isLive(){
+            if($this->health > 0){
+                return true;
+            }
+            else{
+                return false;
+            }
         }
         public function update_health($dop){
             $this->health = $this->health + $dop;
