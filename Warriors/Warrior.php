@@ -6,6 +6,7 @@
         protected $armor;
         protected $speed;
         protected $protection;
+        protected $fraction;
 
         public function Attack($enemy){
             $enemy->health = $enemy->health - $this->weapon->getDamage();
