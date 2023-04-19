@@ -18,32 +18,15 @@ include_once 'Warriors/Warrior.php';
 
         public function Battle(){
             do{
-                echo "Start <br>";
                 $this->first_squad[$this->randWarrior($this->first_squad)]->Attack($this->second_squad[$this->randWarrior($this->second_squad)]);
                 $this->updateSquads();
-                if(count($this->first_squad) == 0 || count($this->second_squad) == 0){
-                    if(count($this->first_squad) == 0){
-                        echo "<h1 style='color: green'>Winner Second Squad</h1>";
-                    }
-                    elseif (count($this->second_squad)==0){
-                        echo "<h1 style='color: green'>Winner First Squad</h1>";
-                    }
-                    break;
-                }
+                if($this->isWiner() == true)break;
                 echo "<br>____________________________________<br>";
                 $this->second_squad[$this->randWarrior($this->second_squad)]->Attack($this->first_squad[$this->randWarrior($this->first_squad)]);
                 $this->updateSquads();
-                if(count($this->second_squad) == 0 || count($this->first_squad) == 0 ){
-                    if(count($this->first_squad) == 0){
-                        echo "<h1 style='color: green'>Winner Second Squad</h1>";
-                    }
-                    elseif (count($this->second_squad)==0){
-                        echo "<h1 style='color: green'>Winner First Squad</h1>";
-                    }
-                    break;
-                }
+                if($this->isWiner() == true)break;
                 echo "<br>____________________________________<br>";
-            }while(count($this->first_squad) != 0 || count($this->second_squad));
+            }while(count($this->first_squad) != 0 || count($this->second_squad) != 0);
         }
         private function randWarrior($squad){
             return rand(0,count($squad)-1);
@@ -80,6 +63,17 @@ include_once 'Warriors/Warrior.php';
                     echo "Commander death";
                 }
             }
+        }
+        public function isWiner(){
+            if(count($this->first_squad) == 0){
+                echo "<h1 style='color: green'>Winner Second Squad</h1>";
+                return true;
+            }
+            elseif (count($this->second_squad)==0){
+                echo "<h1 style='color: green'>Winner First Squad</h1>";
+                return true;
+            }
+            return false;
         }
     }
 ?>
